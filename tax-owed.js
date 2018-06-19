@@ -10,7 +10,6 @@
 //    (the portion of taxable income over $142,353 up to $202,800)
 // + 33% of taxable income over $202,800
 
-
 const taxBrackets = [202800, 142353, 91831, 45916, 0];
 const taxPercents = [0.33, 0.29, 0.26, 0.205, 0.15];
 const taxBreakdown = {};
