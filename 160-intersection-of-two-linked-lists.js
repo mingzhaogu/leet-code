@@ -15,3 +15,17 @@
 // The linked lists must retain their original structure after the function returns.
 // You may assume there are no cycles anywhere in the entire linked structure.
 // Your code should preferably run in O(n) time and use only O(1) memory.
+
+var getIntersectionNode = function(headA, headB) {
+  if (headA === null || headB === null) return null;
+
+  let a = headA;
+  let b = headB;
+
+  while (a != b) {
+    a = (a === null) ? headB : a.next;
+    b = (b === null) ? headA : b.next;
+  }
+
+  return a;
+};
