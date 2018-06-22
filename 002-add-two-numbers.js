@@ -9,4 +9,28 @@
   // Output: 7 -> 0 -> 8
   // Explanation: 342 + 465 = 807.
 
-  
+function ListNode(val) {
+  this.val = val;
+  this.next = null;
+}
+
+var addTwoNumbers = function(l1, l2, carry) {
+  if (!l1 && !l2 && !carry) return null;
+
+  const int1 = l1 ? l1.val : 0;
+  const int2 = l2 ? l2.val : 0;
+  if (!carry) carry = 0;
+
+  let sum = int1 + int2 + carry;
+
+  carry = Math.floor(sum / 10);
+  sum = sum % 10;
+
+  const start = new ListNode(sum);
+
+  const next1 = l1 ? l1.next : null;
+  const next2 = l2 ? l2.next : null;
+  start.next = addTwoNumbers(next1, next2, carry);
+
+  return start;
+};
