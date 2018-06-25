@@ -14,3 +14,26 @@
 // Example 2:
   // Input: "LL"
   // Output: false
+
+var judgeCircle = function(moves) {
+  const change = {
+    "U": 1,
+    "D": -1,
+    "L": -1,
+    "R": 1,
+  };
+
+  let v = 0;
+  let h = 0;
+
+  for (let i = 0; i < moves.length; i++) {
+    const move = moves[i];
+    if (move === "U" || move === "D") {
+      v += change[move];
+    } else if (move === "L" || move === "R") {
+      h += change[move];
+    }
+  }
+
+  return v === 0 && h === 0;
+};
