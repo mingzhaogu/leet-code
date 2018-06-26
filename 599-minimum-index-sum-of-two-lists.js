@@ -25,3 +25,29 @@
   // The length of strings in both lists will be in the range of [1, 30].
   // The index is starting from 0 to the list length minus 1.
   // No duplicates in both lists.
+
+var findRestaurant = function(list1, list2) {
+  const list = {};
+  list1.forEach((place, idx) => {
+    list[place] = idx;
+  });
+
+  let minIdx = list1.length + list2.length;
+  let restaurants = [];
+
+  list2.forEach((place, idx) => {
+    if (list[place] === undefined) {
+      return;
+    }
+
+    const idxSum = list[place] + idx;
+    if (idxSum < minIdx) {
+      restaurants = [place];
+      minIdx = idxSum;
+    } else if (idxSum === minIdx) {
+      restaurants.push(place);
+    }
+  });
+
+  return restaurants;
+};
