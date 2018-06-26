@@ -21,3 +21,21 @@
 // | Afghanistan  | 25500100    | 652230       |
 // | Algeria      | 37100000    | 2381741      |
 // +--------------+-------------+--------------+
+
+// SOLUTION 1:
+SELECT
+    name, population, area
+FROM
+    world
+WHERE
+    population > 25000000
+
+UNION
+
+SELECT
+    name, population, area
+FROM
+    world
+WHERE
+    area > 3000000
+;
