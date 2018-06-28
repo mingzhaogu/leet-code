@@ -38,7 +38,9 @@ var isPalindrome = function(head) {
     right = tortoise.next;
   }
 
-  while (left && right && left.val === right.val) {
+  while (left && right) {
+    if (left.val != right.val) return false;
+    
     left = left.next;
     right = right.next;
   }
