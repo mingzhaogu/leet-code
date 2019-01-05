@@ -1,8 +1,8 @@
 class HeapNode {
-  constructor(person, bike, distance) {
+  constructor(person, bike, value) {
     this.person = person;
     this.bike = bike;
-    this.distance = distance;
+    this.value = value;
   }
 }
 
@@ -59,7 +59,7 @@ class Heap {
 
     const minChildIdx = Math.min(childrenIdxs);
 
-    if (store[parentIdx].distance > store[minChildIdx].distance) {
+    if (store[parentIdx].value > store[minChildIdx].value) {
       [store[parentIdx], store[minChildIdx]] = [store[minChildIdx], store[parentIdx]];
       // return this.constructor.heapifyDown(store, minChildIdx, length);
       return this.heapifyDown(store, minChildIdx, length);
@@ -75,7 +75,7 @@ class Heap {
     // const parentIdx = this.constructor.parentIndex(childIdx);
     const parentIdx = this.parentIndex(childIdx);
 
-    if (store[parentIdx].distance > store[childIdx].distance) {
+    if (store[parentIdx].value > store[childIdx].value) {
       [store[parentIdx], store[childIdx]] = [store[childIdx], store[parentIdx]];
       // return this.constructor.heapifyUp(store, parentIdx, length);
       return this.heapifyUp(store, parentIdx, length);
