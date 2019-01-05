@@ -24,7 +24,52 @@ const relationships = [
 ];
 
 var wizardMeetup = function(wizards) {
-  
+  const nodeWizards = [];
+  const distance = {};
+  const previous = {};
+  const minDistHeap = new Heap();
+
+  wizards.forEach((relations, number) => {
+    distance[number] = Infinity;
+    previous[number] = undefined;
+    minDistHeap.add([number, distance[number]]); // sort by distance[number]
+  });
+
+  distance[0] = 0; // distance from source to source is 0;
+
+  while (minDistHeap.length > 0) {
+    const current = minDistHeap.remove();
+
+    if (current === 9) {
+      const sequence = [];
+      let dest = 9;
+
+      while (previous[dest]) {
+        sequence.unshift(dest);
+        dest = previous[dest];
+      }
+
+      sequence.unshift(dest);
+      return sequence;
+    }
+
+    for (let i = 0; i < wizards[current]; i++) {
+      const nextWiz = wizards[current][i];
+      const altRoute = distance[current] + calcDistance(nextWiz, current);
+
+      if (altRoute < distance[nextWiz]) {
+        distance[nextWiz] = altRoute;
+        previous[nextWiz] = current;
+      }
+    }
+  }
+};
+
+const calcDistance = function(value1, value2) {
+  const max = Math.max(value1, value2);
+  const min = Math.min(value1, value2);
+
+  return Math.pow(max - min, 2);
 };
 
 console.log(wizardMeetup(relationships));
