@@ -16,10 +16,10 @@
 
 // Explanation:
     // The grid is:
-    // [[3, 0, 8, 4],
-    //  [2, 4, 5, 7],
-    //  [9, 2, 6, 3],
-    //  [0, 3, 1, 0]]
+const inputGrid = [[3, 0, 8, 4],
+                   [2, 4, 5, 7],
+                   [9, 2, 6, 3],
+                   [0, 3, 1, 0]]
 
 // The skyline viewed from top or bottom is: [9, 4, 8, 7]
 // The skyline viewed from left or right is: [8, 7, 9, 3]
@@ -27,12 +27,43 @@
 // The grid after increasing the height of buildings without affecting skylines is:
 
 // gridNew = [[8, 4, 8, 7],
-// [7, 4, 7, 7],
-// [9, 4, 8, 7],
-// [3, 3, 3, 3]]
+//            [7, 4, 7, 7],
+//            [9, 4, 8, 7],
+//            [3, 3, 3, 3]]
 
 // Notes:
     // 1 < grid.length = grid[0].length <= 50.
     // All heights grid[i][j] are in the range[0, 100].
     // All buildings in grid[i][j] occupy the entire grid cell: that is, they are a 1 x 1 x grid[i][j] rectangular prism.
-    
+
+// -----
+// Thought Process:
+// - buildings can only be increased to the min(row.max, column.max)
+
+// Needed ingredients:
+// - max of each row
+// - max of each column
+
+var maxIncreaseKeepingSkyline = function (grid) {
+    const lrSkyline = [];
+    const tbSkyline = [];
+
+    grid.forEach((row, rowIdx) => {
+        row.forEach((height, colIdx) => {
+            lrSkyline[rowIdx] = Math.max(lrSkyline[rowIdx] || 0, height);
+            tbSkyline[colIdx] = Math.max(tbSkyline[colIdx] || 0, height);
+        })
+    })
+
+    let count = 0;
+    grid.forEach((row, rowIdx) => {
+        row.forEach((height, colIdx) => {
+            const maxHeight = Math.min(lrSkyline[rowIdx], tbSkyline[colIdx]);
+            if (maxHeight > height) count += maxHeight - height;
+        })
+    })
+
+    return count;
+};
+
+maxIncreaseKeepingSkyline(inputGrid);
