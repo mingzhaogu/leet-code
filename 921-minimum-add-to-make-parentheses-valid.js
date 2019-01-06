@@ -28,6 +28,26 @@
     // S only consists of '(' and ')' characters.
 
 var minAddToMakeValid = function (S) {
+    let openCount = 0;
+    let additionalParentheses = 0;
 
+    for (let i = 0; i < S.length; i++) {
+        switch (S[i]) {
+            case '(':
+                openCount++;
+                break;
+            case ')':
+                openCount ? openCount-- : additionalParentheses++;
+                break;
+            default:
+                break;
+        }
+    }
 
+    return additionalParentheses + openCount;
 };
+
+// console.log("Example 1: ", minAddToMakeValid("())"));
+// console.log("Example 2: ", minAddToMakeValid("((("));
+// console.log("Example 3: ", minAddToMakeValid("()"));
+// console.log("Example 4: ", minAddToMakeValid("()))(("));
