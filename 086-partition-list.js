@@ -17,6 +17,58 @@ function ListNode(val) {
 // @param {number} x
 // @return {ListNode}
 
-var partition = function (head, x) {
-
+const insertNode = function (left, current, right = null) {
+    if (left) {
+        left.next = current;
+    }
+    current.next = right
+    return current;
 };
+
+var partition = function (head, x) {
+    let current = head
+    let leftHead, leftEnd, rightHead, rightEnd
+
+    while (current) {
+        const next = current.next
+
+        if (current.val < x) {
+            leftEnd = insertNode(leftEnd, current, rightHead);
+            if (!leftHead) leftHead = current
+        } else {
+            rightEnd = insertNode(rightEnd, current);
+            if (!rightHead) rightHead = current;
+        }
+
+        current = next
+    }
+    if (leftEnd) leftEnd.next = rightHead
+    return leftHead || rightHead || head
+};
+
+const setup = function (a) {
+    let c, next;
+
+    for (let i = a.length - 1; i >= 0; i--) {
+        c = new ListNode(a[i])
+        c.next = next
+        next = c
+    }
+
+    return c;
+}
+
+const arr = [1, 4, 3, 2, 5, 2]
+const val = 3
+const list = setup(arr)
+
+const displayList = function (head) {
+    const res = []
+    while (head) {
+        res.push(head.val)
+        head = head.next
+    }
+    return res
+}
+
+partition(list, val)
